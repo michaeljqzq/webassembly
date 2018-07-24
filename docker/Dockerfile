@@ -6,22 +6,21 @@ RUN \
     apt-get clean && \
 \
     cd ~/ && \
-    curl -sL https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar xz && \
-    cd emsdk-portable/ && \
-    ./emsdk update && \
-    ./emsdk install -j1 latest && \
+    git clone https://github.com/juj/emsdk.git && \
+    cd emsdk && \
+    ./emsdk install latest && \
     ./emsdk activate latest && \
 \
-    rm -rf ~/emsdk-portable/clang/tag-*/src && \
+    rm -rf ~/emsdk/clang/tag-*/src && \
     find . -name "*.o" -exec rm {} \; && \
     find . -name "*.a" -exec rm {} \; && \
     find . -name "*.tmp" -exec rm {} \; && \
     find . -type d -name ".git" -prune -exec rm -rf {} \; && \
 \
     apt-get -y --purge remove curl git-core cmake && \
-    apt-get -y autoremove && apt-get clean
+    apt-get -y autoremove && apt-get clean && \
 \
-    ln -s /root/emsdk-portable/emscripten/1.38.9/emcc /usr/bin/emcc
+    bash ~/emsdk/emsdk_env.sh --build=Release
 
 # http://docs.docker.com/engine/reference/run/#workdir
 WORKDIR /home/src
