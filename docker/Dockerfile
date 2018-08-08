@@ -20,6 +20,7 @@ RUN \
     apt-get -y --purge remove curl git-core cmake && \
     apt-get -y autoremove && apt-get clean && \
 \
+    ln -s /root/emsdk/emscripten/1.38.11/emcc /usr/bin/emcc && \
     bash ~/emsdk/emsdk_env.sh --build=Release
 
 # http://docs.docker.com/engine/reference/run/#workdir
