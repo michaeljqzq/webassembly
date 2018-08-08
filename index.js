@@ -27,6 +27,6 @@ function loadWebAssembly(fileName) {
 
 loadWebAssembly('counter.wasm', {})
   .then(instance => {
-    squarer = instance.exports._Z7squareri;
     console.log('Finished compiling! Ready when you are...');
+    window.exports = instance.exports;
   });
