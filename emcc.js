@@ -8,11 +8,11 @@ for(let i=2;i<process.argv.length;i++) {
 
 let sp = cp.spawn("docker", args);
 sp.stdout.on('data', function (data) {
-  console.log('stdout: ' + data.toString());
+  console.log(data.toString());
 });
 
 sp.stderr.on('data', function (data) {
-  console.log('stderr: ' + data.toString());
+  console.log(data.toString());
 });
 
 sp.on('exit', function (code) {
