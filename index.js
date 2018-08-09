@@ -49,7 +49,20 @@ function loadExternalJS(src) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-const projectName = 'memory';
+function wrappedSumArray(arr) {
+  // Write array to memory
+  let len = arr.length;
+  const OFFSET = 200;
+  let memArray = new Int32Array(exports.memory.buffer);
+  for(let i=0;i<len;i++) {
+    memArray[OFFSET+i] = arr[i];
+  }
+
+  // Call sumArray
+  return exports.sumArray(OFFSET*4, len);
+}
+
+const projectName = 'array';
 loadWebAssembly(`${projectName}.wasm`, {})
   .then(results => {
     let instance = results.instance;
