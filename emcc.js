@@ -19,4 +19,4 @@ sp.on('exit', function (code) {
   console.log('child process exited with code ' + code.toString());
 });
 
-// emcc counter.cpp -s WASM=1 -s SIDE_MODULE=1 -o counter.wasm
+// emcc array.cpp -s WASM=1 -s "MODULARIZE=1" -s "EXPORT_NAME='SumArray'" -s "BINARYEN_METHOD='native-wasm'" -s "EXPORTED_FUNCTIONS=['_sumArray']" -s "EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap']" -o array.js
