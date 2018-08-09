@@ -50,7 +50,7 @@ function loadExternalJS(src) {
 }
 
 const projectName = 'memory';
-loadWebAssembly(`${projectName}/${projectName}.wasm`, {})
+loadWebAssembly(`${projectName}.wasm`, {})
   .then(results => {
     let instance = results.instance;
     console.log('Finished compiling! Ready when you are...');
