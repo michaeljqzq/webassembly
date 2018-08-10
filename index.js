@@ -33,6 +33,11 @@ function loadWebAssembly(fileName) {
           ABORT: 0,
           nullFunc_X: ()=>123,
           _printf:()=>123,
+          appendHtml: (val) => {
+            let ele = document.createElement('h2');
+            ele.innerText = val;
+            document.getElementsByTagName('body')[0].appendChild(ele);
+          },
         }
       };
       // imports.env.value = {
