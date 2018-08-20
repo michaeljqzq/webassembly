@@ -25,8 +25,24 @@ function loadWebAssembly(fileName) {
     });
 };
 
-loadWebAssembly('counter.wasm', {})
-  .then(instance => {
+function loadJs(fileName) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    document.body.appendChild(script);
+    script.onload = resolve;
+    script.onerror = reject;
+    script.async = true;
+    script.src = fileName;
+  });
+}
+
+Promise.all([loadWebAssembly('./fibo/fibo.wasm', {}), loadWebAssembly('./ts/build/untouched.wasm', {})])
+  .then(instances => {
+    let exports = {};
+    for(let instance of instances) {
+      Object.assign(exports, instance.exports);
+    }
     console.log('Finished compiling! Ready when you are...');
-    window.exports = instance.exports;
+    window.exports = exports;
+    return loadJs('./fibo/comparePerformance.js');
   });
